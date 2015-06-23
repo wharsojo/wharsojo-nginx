@@ -1,0 +1,10 @@
+machine:
+  services:
+    - docker
+dependencies:
+  override:
+    - docker build -t wharsojo/nginx .
+test:
+  override:
+    - docker run -d -p 3000:80 wharsojo/nginx; sleep 30
+    - redis-cli -a mypass -p 6380 ping | grep PONG
